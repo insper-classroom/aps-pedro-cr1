@@ -10,5 +10,5 @@ end entity;
 
 architecture arch of and16 is
 begin
-
+	
 end architecture;

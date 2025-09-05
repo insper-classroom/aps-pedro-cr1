@@ -32,6 +32,7 @@ end entity;
 -- Implementacao do bloco --
 ----------------------------
 architecture rtl of TopLevel is
+---------------
 
 component conceitoa is
 	port(
@@ -46,11 +47,12 @@ end component;
 --------------
 -- signals
 --------------
-
 ---------------
 -- implementacao
 ---------------
 begin
-
-
+	HEX0 <= "0010010";
+	HEX1 <= "0010010";
+	HEX2 <= "0010010";
 end rtl;
+
