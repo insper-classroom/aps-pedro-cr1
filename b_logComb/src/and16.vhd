@@ -9,6 +9,9 @@ entity and16 is
 end entity;
 
 architecture arch of and16 is
+
 begin
+
+	q <= a and b;
 
 end architecture;
