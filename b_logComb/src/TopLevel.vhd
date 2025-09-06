@@ -46,11 +46,23 @@ end component;
 --------------
 -- signals
 --------------
+ signal X,Y,Z: std_logic;
+ signal expressao: std_logic;
+
 
 ---------------
 -- implementacao
 ---------------
 begin
+	X<= SW(0);
+	Y<= SW(1);
+	Z<=SW(2);
+	expressao<= (not X) or (not Y) or (not Z);
+	LEDR <= "1111111111" when expressao = '1' else
+				"0000000000";
+	HEX0<= "0010010";
+	HEX1<= "0010010";
+	HEX2<= "0010010";
 
 	HEX0 <= "0010010";
 		
