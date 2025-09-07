@@ -1,5 +1,6 @@
 # Adapted from https://github.com/cocotb/cocotb/blob/master/examples/doc_examples/quickstart/test_my_design.py
 
+from itertools import product
 import cocotb
 from cocotb.triggers import Timer
        
@@ -487,3 +488,20 @@ async def tb_sevenseg(dut):
             assert condition, "Error in test {0}!".format(i)
         await Timer(1, units="ns")
 
+@cocotb.test()
+async def tb_xor3(dut):
+
+    # varre todas as combinações de a,b,c
+    for a, b, c in product([0, 1], repeat=3):
+        dut.a.value = a
+        dut.b.value = b
+        dut.c.value = c
+
+        # pequena espera para propagação
+        await Timer(1, units="ns")
+
+        # XOR-3: paridade ímpar
+        expected = (a ^ b) ^ c
+        got = int(dut.y.value)
+
+        assert got == expected, f"XOR3 falhou para a,b,c={a}{b}{c}: esperado {expected}, obtido {got}"
