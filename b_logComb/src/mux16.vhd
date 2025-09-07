@@ -11,5 +11,7 @@ end entity;
 
 architecture arch of mux16 is
 begin
+	q<= a when sel='0' else
+	b;
 
 end architecture;
