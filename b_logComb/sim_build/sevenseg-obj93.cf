@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/Elesis/APS_B/aps-pedro-cr1/b_logComb/src/sevenseg.vhd" "4474b5b1f9ed79a68220ab9c0fb1b70356fcc61f" "20250908142733.585":
+  entity sevenseg at 1( 0) + 0 on 11;
+  architecture arch of sevenseg at 10( 171) + 0 on 12;

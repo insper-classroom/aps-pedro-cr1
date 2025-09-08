@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/Elesis/APS_B/aps-pedro-cr1/b_logComb/src/mux16.vhd" "3bf0ddec073c42721311a2a6e74bdc5e1965a1c6" "20250908142729.775":
+  entity mux16 at 1( 0) + 0 on 11;
+  architecture arch of mux16 at 12( 235) + 0 on 12;
