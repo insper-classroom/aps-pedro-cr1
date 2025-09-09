@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/Elesis/APS_B/aps-pedro-cr1/b_logComb/src/barrelshifter16.vhd" "4a9dce5bd6cca5c5ee5153d2fa91a1a6b62e36fe" "20250908142725.372":
+  entity barrelshifter16 at 1( 0) + 0 on 11;
+  architecture rtl of barrelshifter16 at 13( 381) + 0 on 12;
