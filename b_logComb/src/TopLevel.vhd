@@ -35,22 +35,37 @@ architecture rtl of TopLevel is
 
 component conceitoa is
 	port(
-		CLOCK_50 : in  std_logic;
-		SW       : in  std_logic_vector(9 downto 0);
-        HEX0     : out std_logic_vector(6 downto 0); -- 7seg0
-        HEX1     : out std_logic_vector(6 downto 0); -- 7seg0
-        HEX2     : out std_logic_vector(6 downto 0); -- 7seg0
-		LEDR     : out std_logic_vector(9 downto 0)
+	
+		 SW      : in  std_logic_vector(9 downto 0);
+       HEX0    : out std_logic_vector(6 downto 0); -- 7seg0
+       LEDR    : out std_logic_vector(9 downto 0)
 	);
+	
 end component;
+
 --------------
 -- signals
 --------------
+ signal X,Y,Z: std_logic;
+ signal expressao: std_logic;
+
 
 ---------------
 -- implementacao
 ---------------
 begin
+	X<= SW(0);
+	Y<= SW(1);
+	Z<=SW(2);
+	expressao<= (not X) or (not Y) or (not Z);
+	LEDR <= "1111111111" when expressao = '1' else
+				"0000000000";
+	HEX0<= "0010010";
+	HEX1<= "0010010";
+	HEX2<= "0010010";
 
-
+	HEX0 <= "0010010";
+		
+ 
 end rtl;
+

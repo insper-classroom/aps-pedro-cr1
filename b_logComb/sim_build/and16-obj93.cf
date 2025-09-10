@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/Elesis/APS_B/aps-pedro-cr1/b_logComb/src/and16.vhd" "91e609a9210f0663874d8d89f9f70f16387763cc" "20250908142722.179":
+  entity and16 at 1( 0) + 0 on 11;
+  architecture arch of and16 at 11( 212) + 0 on 12;

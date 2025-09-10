@@ -1,5 +1,6 @@
 # Adapted from https://github.com/cocotb/cocotb/blob/master/examples/doc_examples/quickstart/test_my_design.py
 
+from itertools import product
 import cocotb
 from cocotb.triggers import Timer
        
@@ -487,3 +488,70 @@ async def tb_sevenseg(dut):
             assert condition, "Error in test {0}!".format(i)
         await Timer(1, units="ns")
 
+@cocotb.test()
+async def tb_xor3(dut):
+
+    # varre todas as combinações de a,b,c
+    for a, b, c in product([0, 1], repeat=3):
+        dut.a.value = a
+        dut.b.value = b
+        dut.c.value = c
+
+        # pequena espera para propagação
+        await Timer(1, units="ns")
+
+        # XOR-3: paridade ímpar
+        expected = (a ^ b) ^ c
+        got = int(dut.y.value)
+
+        assert got == expected, f"XOR3 falhou para a,b,c={a}{b}{c}: esperado {expected}, obtido {got}"
+
+def exp_y1(x1, x2, x3, x4):
+    # y1 = "10" | "01" | "00"
+    if (x3 == 0) and (x4 == 0) and (x1 == 1 or x2 == 0):
+        return 0b10
+    elif (x1 == 0) and (x2 == 0) and (x3 == 1):
+        return 0b01
+    else:
+        return 0b00
+
+def exp_y2(x1, x2, x3, x4):
+    # y2 = "10" | "01" | "00"
+    if (x3 == 0) and (x4 == 0) and (x2 == 1 or x1 == 0):
+        return 0b10
+    elif (x1 == 0) and (x2 == 0) and (x4 == 1):
+        return 0b01
+    else:
+        return 0b00
+
+@cocotb.test()
+async def tb_carrinho(dut):
+    """
+    Varre todas as combinações de x1..x4 (0/1) e valida y1,y2.
+    """
+    for x1, x2, x3, x4 in product([0, 1], repeat=4):
+        # aplica entradas
+        dut.x1.value = x1
+        dut.x2.value = x2
+        dut.x3.value = x3
+        dut.x4.value = x4
+
+        # pequena espera para propagação combinacional
+        await Timer(1, units="ns")
+
+        # esperados
+        y1_exp = exp_y1(x1, x2, x3, x4)
+        y2_exp = exp_y2(x1, x2, x3, x4)
+
+        # obtidos (STD_LOGIC_VECTOR -> int)
+        y1_got = int(dut.y1.value)
+        y2_got = int(dut.y2.value)
+
+        assert y1_got == y1_exp, (
+            f"Falha em y1 para x1x2x3x4={x1}{x2}{x3}{x4}: "
+            f"esperado {y1_exp:02b}, obtido {y1_got:02b}"
+        )
+        assert y2_got == y2_exp, (
+            f"Falha em y2 para x1x2x3x4={x1}{x2}{x3}{x4}: "
+            f"esperado {y2_exp:02b}, obtido {y2_got:02b}"
+        )
