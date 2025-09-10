@@ -11,11 +11,9 @@ def source(name):
 	src_dir = os.path.join(dir, 'src' )
 	return os.path.join(src_dir, name)
    
-#@pytest.mark.telemetry_files(source('and16.vhd'))
 def test_and16():
     run(vhdl_sources=[source("and16.vhd")], toplevel="and16", module="logComb_cocotb" , testcase='tb_and16', toplevel_lang="vhdl")
 
-#@pytest.mark.telemetry_files(source('or16.vhd'))
 def test_or16():
     run(vhdl_sources=[source("or16.vhd")], toplevel="or16", module="logComb_cocotb" , testcase='tb_or16', toplevel_lang="vhdl")
     
