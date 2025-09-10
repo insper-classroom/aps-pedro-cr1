@@ -4,7 +4,7 @@
 ## LINK VIDEO: https://youtube.com/shorts/8-ezzWqeykY?feature=share
 
 
--   Nome: Láisa Camilly de Oliveira
+-   Nome: Láisa Camilly de Oliveira<br><br>
     Email-insper: laisaco1@al.insper.edu.br
     User-github: laisacamilly
  
