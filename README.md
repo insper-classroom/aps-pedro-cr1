@@ -4,29 +4,29 @@
 ## LINK VIDEO: https://youtube.com/shorts/8-ezzWqeykY?feature=share
 
 
--   "nome": "Láisa Camilly de Oliveira",
-    "email-insper": "laisaco1@al.insper.edu.br",
-    "user-github": "laisacamilly"
+-   Nome: Láisa Camilly de Oliveira
+    Email-insper: laisaco1@al.insper.edu.br
+    User-github: laisacamilly
  
--   "nome": "Enrico Castro Guarita",
-    "email-insper": "enricocg@al.insper.edu.br",
-    "user-github": "enricocg21"
+-   Nome: Enrico Castro Guarita
+    Email-insper: enricocg@al.insper.edu.br
+    User-github: enricocg21
  
--   "nome": "Caio Souza Rosa",
-    "email-insper": "Caiosr2@al.insper.edu.br",
-    "user-github": "Caiosr2"
+-   Nome: Caio Souza Rosa
+    Email-insper: Caiosr2@al.insper.edu.br
+    User-github: Caiosr2
     
--   "nome": "Pedro Averame Kramer",
-    "email-insper": "pedroak@al.insper.edu.br",
-    "user-github": "P-Kramer"
+-   Nome: Pedro Averame Kramer
+    Email-insper: pedroak@al.insper.edu.br
+    User-github: P-Kramer
 
--   "nome": "Felipe Serra Silva",
-    "email-insper": "felipess16@al.insper.edu.br",
-    "user-github": "Felipe-Serra-Silva"
+-   Nome: Felipe Serra Silva
+    Email-insper: felipess16@al.insper.edu.br
+    User-github: Felipe-Serra-Silva
 
--   "nome": "Joseph Perl",
-    "email-insper": "josephp@al.insper.edu.br",
-    "user-github": "josephperl"
+-   Nome: Joseph Perl
+    Email-insper: josephp@al.insper.edu.br
+    User-github: josephperl
     
 
 ```
