@@ -1,4 +1,4 @@
 v 4
-file / "/home/borg/Downloads/ELESIS/aps-pedro-cr1/b_logComb/src/impressora.vhd" "4abc06191ff507c1862f2cc9aeef706cbf75b69e" "20250909233853.111":
+file / "/home/borg/aps-pedro-cr1/b_logComb/src/impressora.vhd" "554cbf38b1700a55e50c7a3e53eb4e0c399aceb3" "20250910221109.804":
   entity impressora at 1( 0) + 0 on 11;
   architecture arch of impressora at 10( 148) + 0 on 12;
