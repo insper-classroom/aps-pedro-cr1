@@ -5,27 +5,27 @@
 
 
 -   Nome: Láisa Camilly de Oliveira<br><br>
-    Email-insper: laisaco1@al.insper.edu.br
+    Email-insper: laisaco1@al.insper.edu.br<br><br>
     User-github: laisacamilly
  
--   Nome: Enrico Castro Guarita
-    Email-insper: enricocg@al.insper.edu.br
+-   Nome: Enrico Castro Guarita<br><br>
+    Email-insper: enricocg@al.insper.edu.br<br><br>
     User-github: enricocg21
  
--   Nome: Caio Souza Rosa
-    Email-insper: Caiosr2@al.insper.edu.br
+-   Nome: Caio Souza Rosa<br><br>
+    Email-insper: Caiosr2@al.insper.edu.br<br><br>
     User-github: Caiosr2
     
--   Nome: Pedro Averame Kramer
-    Email-insper: pedroak@al.insper.edu.br
+-   Nome: Pedro Averame Kramer<br><br>
+    Email-insper: pedroak@al.insper.edu.br<br><br>
     User-github: P-Kramer
 
--   Nome: Felipe Serra Silva
-    Email-insper: felipess16@al.insper.edu.br
+-   Nome: Felipe Serra Silva<br><br>
+    Email-insper: felipess16@al.insper.edu.br<br><br>
     User-github: Felipe-Serra-Silva
 
--   Nome: Joseph Perl
-    Email-insper: josephp@al.insper.edu.br
+-   Nome: Joseph Perl<br><br>
+    Email-insper: josephp@al.insper.edu.br<br><br>
     User-github: josephperl
     
 
