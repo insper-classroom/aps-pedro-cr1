@@ -1,4 +1,4 @@
 v 4
-file / "/home/borg/Elesis/APS_B/aps-pedro-cr1/b_logComb/src/mux2way.vhd" "1002196dce21b9128f5a3bd952cc952e304e3553" "20250908142727.884":
+file / "/home/borg/aps-pedro-cr1/b_logComb/src/mux2way.vhd" "c9ec6bd7bdf0c9b7a4b25cc6c599f948075154b5" "20250910221103.755":
   entity mux2way at 1( 0) + 0 on 11;
-  architecture arch of mux2way at 12( 177) + 0 on 12;
+  architecture arch of mux2way at 13( 209) + 0 on 12;
