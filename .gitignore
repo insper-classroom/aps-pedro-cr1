@@ -1,0 +1,4 @@
+__pycache__/
+waves/
+sim_build/
+*results.xml

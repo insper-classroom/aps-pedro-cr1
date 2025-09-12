@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Teste
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    
+    env:
+      SIM: ghdl 
+      
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    
+    - name: Install ubuntu dependencies
+      run: |
+#sudo dpkg --add-architecture i386
+#sudo apt-get update
+#sudo apt-get install build-essential
+#sudo apt-get install gcc make libxft2:i386 libxext6:i386 \
+#libncurses5:i386 libstdc++6:i386 libpng-dev libpng16-16:i386 \
+#libpng16-16 libnotify-bin 
+        sudo apt install ghdl
+        
+    - name: Install python dependencies
+      run: |
+        pip3 install -r requirements.txt
+        pip3 install numpy
+      
+    - name: teste vhdl
+      run: |
+        SIM=ghdl pytest -s
+        
+    
