@@ -17,15 +17,8 @@ architecture rtl of comparador16 is
   -- Aqui declaramos sinais (fios auxiliares)
   -- e componentes (outros módulos) que serao
   -- utilizados nesse modulo.
-  signal primeiro_bit: std_logic;
+
 begin
   -- Implementação vem aqui!
-  zr<= '1' when a="0000000000000000" else
-    '0';
-  primeiro_bit<= a(15);
-
-  ng<= '1' when primeiro_bit ='1' else
-  '0';
 
 end architecture;
-

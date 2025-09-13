@@ -55,14 +55,8 @@ architecture rtl of TopLevel is
 ---------------
 -- implementacao
 ---------------
- -- Sinal:
- signal c_in: std_logic; -- Sinal pra entrar no carry in do outro full adder.
- 
 begin
 
-  -- u1 : HalfAdder port map(a => SW(0), b=> SW(1), soma => LEDR(0), vaium => LEDR(1));
-		u1 : FullAdder port map(a => SW(0), b=> SW(1), c => SW(2), soma => LEDR(0), vaium => c_in );
-		u2 : FullAdder port map(a => SW(3), b=> SW(4), c => c_in, soma => LEDR(1), vaium => LEDR(2));
-		
-	
+  u1 : HalfAdder port map(a => SW(0), b=> SW(1), soma => LEDR(0), vaium => LEDR(1));
+
 end rtl;

@@ -7,15 +7,18 @@ use IEEE.STD_LOGIC_1164.all;
 
 entity inversor16 is
   port(
-        z : in  STD_LOGIC;
-        a : in  STD_LOGIC_VECTOR(15 downto 0);
-        y : out STD_LOGIC_VECTOR(15 downto 0)
+        z   : in STD_LOGIC;
+        a   : in STD_LOGIC_VECTOR(15 downto 0);
+        y   : out STD_LOGIC_VECTOR(15 downto 0)
       );
 end entity;
 
 architecture rtl of inversor16 is
-begin
+  -- Aqui declaramos sinais (fios auxiliares)
+  -- e componentes (outros módulos) que serao
+  -- utilizados nesse modulo.
 
-  y <= not a when z = '1' else a;
+begin
+  -- Implementação vem aqui!
 
 end architecture;
