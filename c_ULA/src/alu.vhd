@@ -106,6 +106,31 @@ architecture  rtl OF alu is
 	
 	
 begin
+
+	-- Bloco Zerador pra X e Y:
+		zx1: zerador16 port map(z => zx, a => x, y => zxout);
+		zy1: zerador16 port map(z => zy, a => y, y => zyout);
+		
+	-- Bloco Inversor pra X e Y:
+		ix1: inversor16 port map(z => nx, a => zxout , y => nxout);
+		iy1: inversor16 port map(z => ny, a => zyout , y => nyout);
+		
+	-- Bloco Add:
+		add1: add16 port map(a => nxout, b => nyout, q => adderout);
+		
+	-- Bloco And:
+		and1: and16 port map(a => nxout, b => nyout, q => andout);
+		
+	-- Bloco Mux:
+		mux1: mux16 port map(a => andout, b => adderout, sel => f, q => muxout);
+		
+	-- Bloco Inversor final:
+		no1: inversor16 port map(z => no, a => muxout, y => precomp);
+		
+	-- Bloco Comparador:
+		comp1: comparador16 port map(a => precomp, zr => zr, ng => ng);
+		
+	saida <= precomp;
   
 
 end architecture;
