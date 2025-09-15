@@ -21,4 +21,5 @@ architecture rtl of zerador16 is
 begin
   -- Implementação vem aqui!
 
+
 end architecture;

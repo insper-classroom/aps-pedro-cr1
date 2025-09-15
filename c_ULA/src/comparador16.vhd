@@ -21,4 +21,5 @@ architecture rtl of comparador16 is
 begin
   -- Implementação vem aqui!
 
+
 end architecture;
