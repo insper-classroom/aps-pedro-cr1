@@ -21,7 +21,4 @@ architecture rtl of comparador16 is
 begin
   -- Implementação vem aqui!
 
-  ng <= '1' when (a(15) = '1') else '0';
-  zr <= '1' when (a = "0000000000000000") else '0';
-
 end architecture;
