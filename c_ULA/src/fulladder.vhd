@@ -15,11 +15,12 @@ entity FullAdder is
 end entity;
 
 architecture rtl of FullAdder is
+  -- Aqui declaramos sinais (fios auxiliares)
+  -- e componentes (outros módulos) que serao
+  -- utilizados nesse modulo.
 
 begin
-
-  -- Implementação vem aqui!
-  soma <= (a xor b xor c);
-  vaium <= (a and b) or (c and (a xor b));
+  soma  <= a xor b xor c;
+  vaium <= (a and b) or (a and c) or (b and c);
   
 end architecture;
