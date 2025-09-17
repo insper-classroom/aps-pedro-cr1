@@ -45,7 +45,8 @@ entity alu is
 			no:    in STD_LOGIC;                     -- inverte o valor da saída
 			zr:    out STD_LOGIC;                    -- setado se saída igual a zero
 			ng:    out STD_LOGIC;                    -- setado se saída é negativa
-			saida: out STD_LOGIC_VECTOR(15 downto 0) -- saída de dados da ALU
+			saida: out STD_LOGIC_VECTOR(15 downto 0); -- saída de dados da ALU
+			carry: out STD_LOGIC
 			
 	);
 end entity;
@@ -73,7 +74,8 @@ architecture  rtl OF alu is
 		port(
 			a   :  in STD_LOGIC_VECTOR(15 downto 0);
 			b   :  in STD_LOGIC_VECTOR(15 downto 0);
-			q   : out STD_LOGIC_VECTOR(15 downto 0)
+			q   : out STD_LOGIC_VECTOR(15 downto 0);
+			cout: out STD_LOGIC --conceito B
 		);
 	end component;
 
@@ -101,8 +103,10 @@ architecture  rtl OF alu is
 			q:   out STD_LOGIC_VECTOR(15 downto 0)
 		);
 	end component;
+	
    
    SIGNAL zxout,zyout,nxout,nyout,andout,adderout,muxout,precomp: std_logic_vector(15 downto 0);
+	--SIGNAL carryout std_logic;
 	
 	
 begin
@@ -115,14 +119,14 @@ begin
 		ix1: inversor16 port map(z => nx, a => zxout , y => nxout);
 		iy1: inversor16 port map(z => ny, a => zyout , y => nyout);
 		
-	-- Bloco Add:
-		add1: add16 port map(a => nxout, b => nyout, q => adderout);
+	-- Bloco Add e carry:
+		add1: Add16 port map(a => nxout, b => nyout, q => adderout, cout => carry);
 		
 	-- Bloco And:
-		and1: and16 port map(a => nxout, b => nyout, q => andout);
+		and1: And16 port map(a => nxout, b => nyout, q => andout);
 		
-	-- Bloco Mux:
-		mux1: mux16 port map(a => andout, b => adderout, sel => f, q => muxout);
+	-- Bloco Mux de and e add:
+		mux1: Mux16 port map(a => andout, b => adderout, sel => f, q => muxout);
 		
 	-- Bloco Inversor final:
 		no1: inversor16 port map(z => no, a => muxout, y => precomp);
@@ -130,7 +134,7 @@ begin
 	-- Bloco Comparador:
 		comp1: comparador16 port map(a => precomp, zr => zr, ng => ng);
 		
+		
 	saida <= precomp;
-  
 
 end architecture;
