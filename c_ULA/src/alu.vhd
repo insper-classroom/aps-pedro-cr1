@@ -138,3 +138,5 @@ begin
 	saida <= precomp;
 
 end architecture;
+
+--teste
