@@ -19,7 +19,7 @@ architecture rtl of zerador16 is
   -- utilizados nesse modulo.
 
 begin
-  -- Implementação vem aqui!
+   y <=  a when z= '0' else "0000000000000000";
 
 
 end architecture;
