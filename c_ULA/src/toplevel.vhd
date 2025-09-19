@@ -16,16 +16,16 @@ use ieee.std_logic_1164.all;
 
 entity TopLevel is
   port(
-    SW      : in  std_logic_vector(9 downto 0);     -- chaves da FPGA
-    LEDR    : out std_logic_vector(9 downto 0);     -- leds vermelhos
-    HEX0, HEX1, HEX2, HEX3 : out std_logic_vector(6 downto 0)  -- 7 segmentos
+    SW      : in  std_logic_vector(9 downto 0);   
+    LEDR    : out std_logic_vector(9 downto 0);     
+    HEX0, HEX1, HEX2, HEX3 : out std_logic_vector(6 downto 0)  
   );
 end entity;
 
 architecture rtl of TopLevel is
 
   -- sinais internos
-  signal x, y   : std_logic_vector(15 downto 0) := x"0003"; -- valores fixos
+  signal x, y   : std_logic_vector(15 downto 0) := x"0003";
   signal saida  : std_logic_vector(15 downto 0);
 
   -- sinais internos para os displays
