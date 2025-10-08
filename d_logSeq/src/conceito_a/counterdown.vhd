@@ -1,34 +1,42 @@
+-- Elementos de Sistemas
+-- CounterDown.vhd
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity counterdown is
+entity CounterDown is
     port(
         clock : in  std_logic;
         q     : out std_logic_vector(2 downto 0)
     );
 end entity;
 
-architecture rtl of counterdown is
-    signal q0, q1, q2    : std_logic := '0';
-    signal nq0, nq1      : std_logic;
-    signal nqb0, nqb1, nqb2 : std_logic; -- lixo para notq (se o TB exigir conexão)
+architecture arch of CounterDown is
+    component FlipFlopT is
+        port(
+            clock : in  std_logic;
+            t     : in  std_logic;
+            q     : out std_logic;
+            notq  : out std_logic
+        );
+    end component;
+
+    signal q0, q1, q2 : std_logic := '0';
+    signal nq0, nq1   : std_logic;
+    signal t0, t1, t2 : std_logic;
 begin
-    -- complementos
+    -- Complementos
     nq0 <= not q0;
     nq1 <= not q1;
 
-    -- T0 = '1'  -> alterna a cada clock
-    U0: entity work.flipflopt(rtl)
-        port map(clock => clock, t => '1',              q => q0, notq => nqb0);
+    -- Entradas T
+    t0 <= '1';             -- alterna a cada clock
+    t1 <= nq0;             -- alterna quando Q0 = 0
+    t2 <= nq0 and nq1;     -- alterna quando Q0=0 e Q1=0
 
-    -- T1 = ~Q0  -> alterna quando Q0 = 0
-    U1: entity work.flipflopt(rtl)
-        port map(clock => clock, t => nq0,              q => q1, notq => nqb1);
+    -- Flip-flops
+    U0: FlipFlopT port map(clock => clock, t => t0, q => q0, notq => nq0);
+    U1: FlipFlopT port map(clock => clock, t => t1, q => q1, notq => nq1);
+    U2: FlipFlopT port map(clock => clock, t => t2, q => q2, notq => open);
 
-    -- T2 = ~Q0 & ~Q1 -> alterna quando Q0=0 e Q1=0
-    U2: entity work.flipflopt(rtl)
-        port map(clock => clock, t => (nq0 and nq1),    q => q2, notq => nqb2);
-
-    -- ordem de saída [2..0]
     q <= q2 & q1 & q0;
 end architecture;
