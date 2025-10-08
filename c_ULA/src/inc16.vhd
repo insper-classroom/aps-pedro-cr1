@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
 
 entity Inc16 is
 	port(
@@ -16,19 +17,7 @@ entity Inc16 is
 end entity;
 
 architecture rtl of Inc16 is
-  -- Aqui declaramos sinais (fios auxiliares)
-  -- e componentes (outros módulos) que serao
-  -- utilizados nesse modulo.
-
-  component Add16 is
-    port(
-      a   :  in STD_LOGIC_VECTOR(15 downto 0);
-      b   :  in STD_LOGIC_VECTOR(15 downto 0);
-      q   : out STD_LOGIC_VECTOR(15 downto 0)
-      );
-  end component;
-
 begin
-  -- Implementação vem aqui!
-  u1: Add16 port map (a => a, b=> (15 downto 1 => '0', 0 => '1'), q => q);
+  -- Implementação direta usando operador +
+  q <= std_logic_vector(unsigned(a) + 1);
 end architecture;
