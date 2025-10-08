@@ -60,6 +60,35 @@ architecture arch of PC is
 
 begin
 
+    -- Componente para incrementar
+    inc_component: Inc16 port map(
+        a => outputReg,
+        q => muxin0
+    );
 
+    -- Process para lógica combinacional
+    process(reset, load, increment, input, outputReg, muxin0)
+    begin
+        if reset = '1' then
+            muxOut <= (others => '0');
+        elsif load = '1' then
+            muxOut <= input;
+        elsif increment = '1' then
+            muxOut <= muxin0;
+        else
+            muxOut <= outputReg;
+        end if;
+    end process;
+
+    -- Registrador
+    reg_component: Register16 port map(
+        clock => clock,
+        input => muxOut,
+        load => '1',
+        output => outputReg
+    );
+
+    -- Saída
+    output <= outputReg;
 
 end architecture;

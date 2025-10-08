@@ -550,9 +550,9 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[2]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_R[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_VS
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name VHDL_FILE ../../b_logComb/src/mux2way.vhd
 set_global_assignment -name VHDL_FILE ../../b_logComb/src/mux16.vhd
 set_global_assignment -name VHDL_FILE ../../b_logComb/src/mux8way16.vhd
 set_global_assignment -name VHDL_FILE ../../b_logComb/src/dmux8way.vhd
 set_global_assignment -name VHDL_FILE ../../c_ULA/src/inc16.vhd
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
