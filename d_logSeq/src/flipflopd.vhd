@@ -16,18 +16,19 @@ entity FlipFlopD is
 end entity;
 
 architecture arch of FlipFlopD is
+    signal q_int : std_logic := '0';
 
 begin
+    process(clock, clear, preset)
+    begin
+        if (clear = '1') then
+            q_int <= '0';                      
+        elsif (preset = '1') then
+            q_int <= '1';                       
+        elsif (rising_edge(clock)) then
+            q_int <= d;                         
+        end if;
+    end process;
 
-	process(clock, clear)
-	begin
-		if (clear = '1') then
-			Q <= '0';
-		elsif(rising_edge(clock)) then
-			Q <= D;
-		end if;
-
-	end process;
-
-
+    q <= q_int;                               
 end architecture;
