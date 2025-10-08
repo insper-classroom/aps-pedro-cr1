@@ -1,10 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/tgRCPRor)
 
-
-## LINK VIDEO APS B: https://youtube.com/shorts/8-ezzWqeykY?feature=share
-## LINK VIDEO APS C: https://youtu.be/X6VJEk8TwP8
-
-
+## LINK VIDEO APS D: https://youtu.be/QAOcdccR_vQ
 
 -   **Nome: Láisa Camilly de Oliveira**<br><br>
     Email-insper: laisaco1@al.insper.edu.br<br><br>
@@ -30,6 +26,8 @@
     Email-insper: josephp@al.insper.edu.br<br><br>
     User-github: josephperl
     
+## LINK VIDEO APS B: https://youtube.com/shorts/8-ezzWqeykY?feature=share
+## LINK VIDEO APS C: https://youtu.be/X6VJEk8TwP8
 
 ```
 export SIM=ghdl
