@@ -27,11 +27,43 @@ entity ControlUnit is
 end entity;
 
 architecture arch of ControlUnit is
-
+    signal jump_condition   : STD_LOGIC;
 begin
-  
-  
 
+    -- 1. Sinais de Carga (LOAD) -- CORRIGIDO
+    loadA <= (not instruction(17)) or (instruction(17) and instruction(3)); -- Destino A (d0)
+    loadD <= instruction(17) and instruction(4); -- Destino D (d1)
+    loadM <= instruction(17) and instruction(5); -- Destino M (d2)
 
+    -- 2. Seletores de MUX -- CORRIGIDO
+    muxALUI_A <= not instruction(17);           -- Inverte saída do bit principal
+    muxAM     <= instruction(17) and instruction(13);        -- Bit 'a'/'r0': 0=A, 1=M
+
+    -- 3. Sinais de controle da ULA (Cópia direta dos bits c5-c0)
+    zx <= instruction(17) and instruction(12);
+    nx <= instruction(17) and instruction(11);
+    zy <= instruction(17) and instruction(10);
+    ny <= instruction(17) and instruction(9);
+    f  <= instruction(17) and instruction(8);
+    no <= instruction(17) and instruction(7);
+
+    -- 4. Lógica de Salto (JUMP)
+    process(instruction, zr, ng)
+    begin
+        -- O case statement já está ótimo!
+        case instruction(2 downto 0) is
+            when "001" => jump_condition <= not zr and not ng;  -- JGT
+            when "010" => jump_condition <= zr;                -- JEQ
+            when "011" => jump_condition <= not ng;            -- JGE
+            when "100" => jump_condition <= ng;                -- JLT
+            when "101" => jump_condition <= not zr;            -- JNE
+            when "110" => jump_condition <= zr or ng;          -- JLE
+            when "111" => jump_condition <= '1';               -- JMP
+            when others => jump_condition <= '0';              -- No jump
+        end case;
+    end process;
+
+    -- O PC carrega se for uma Instrução-C E a condição de salto for verdadeira
+    loadPC <= instruction(17) and jump_condition;
 
 end architecture;
