@@ -155,5 +155,4 @@ BEGIN
     -- precisar ser: RAM ou SW16
     -- OUTPUT <= ?????? ;
 
-
 END logic;
