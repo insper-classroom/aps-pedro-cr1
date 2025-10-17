@@ -136,8 +136,8 @@ BEGIN
     -- Controla LOAD do display e da ram e LED ! --
     ----------------------------------------
     LOAD_RAM     <= LOAD when ADDRESS(14) = '0' else '0';               -- RAM ocupa addresses 0xxx xxxx xxxx xxxx
-    LOAD_DISPLAY <= LOAD when ADDRESS(14 downto 13) = "10" else '0';    -- Display/LCD nos endereços 10xx xxxx xxxx xxxx
-    LOAD_LED     <= LOAD when ADDRESS(14 downto 13) = "11" else '0';    -- LED no endereço 11xx xxxx xxxx xxxx
+    LOAD_DISPLAY <= LOAD when (ADDRESS(14 downto 0) > ("100000000000000")) and (ADDRESS(14 downto 0) < ("101001011111111")) else '0';    -- Display/LCD nos endereços 10xx xxxx xxxx xxxx
+    LOAD_LED     <= LOAD when ADDRESS(14 downto 0) = "101001011000001" else '0';    -- LED no endereço 11xx xxxx xxxx xxxx
 
 
     ----------------------------------------
