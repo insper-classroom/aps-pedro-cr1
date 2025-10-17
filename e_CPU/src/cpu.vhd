@@ -65,6 +65,7 @@ architecture arch of CPU is
       instruction                 : in STD_LOGIC_VECTOR(17 downto 0);
       zr,ng                       : in STD_LOGIC;
       muxALUI_A                   : out STD_LOGIC;
+      muxALUI_D                   : out STD_LOGIC;
       muxAM                       : out STD_LOGIC;
       zx, nx, zy, ny, f, no       : out STD_LOGIC;
       loadA, loadD, loadM, loadPC : out STD_LOGIC
@@ -72,6 +73,7 @@ architecture arch of CPU is
   end component;
 
   -- Sinais de controle:
+  signal c_muxALUI_D: STD_LOGIC;
   signal c_muxALUI_A: STD_LOGIC;
   signal c_muxAM: STD_LOGIC;
   signal c_zx: STD_LOGIC;
@@ -88,6 +90,7 @@ architecture arch of CPU is
 
   -- Sinais de dados:
   signal s_muxALUI_Aout: STD_LOGIC_VECTOR(15 downto 0);
+  signal s_muxALUI_Dout: STD_LOGIC_VECTOR(15 downto 0);
   signal s_muxAM_out: STD_LOGIC_VECTOR(15 downto 0);
   signal s_regAout: STD_LOGIC_VECTOR(15 downto 0);
   signal s_regDout: STD_LOGIC_VECTOR(15 downto 0);
@@ -101,6 +104,7 @@ begin
     zr => c_zr,
     ng => c_ng,
     muxALUI_A => c_muxALUI_A,
+    muxALUI_D => c_muxALUI_D,
     muxAM => c_muxAM,
     zx => c_zx,
     nx => c_nx,
@@ -139,6 +143,13 @@ begin
     q => s_muxALUI_Aout
   );
 
+  -- MUX para selecionar entrada do registrador D: ULA ou valor imediato
+  mux_alu_d: Mux16 port map(
+    a => s_ALUout,                    -- Saída da ULA (comportamento normal)
+    b => instruction(15 downto 0),    -- Valor imediato da instrução
+    sel => c_muxALUI_D,               -- Sinal de controle da ControlUnit
+    q => s_muxALUI_Dout               -- Saída para registrador D
+  );
   
   register_a: Register16 port map(
     clock => clock,
@@ -150,7 +161,7 @@ begin
 
   register_d: Register16 port map(
     clock => clock,
-    input => s_ALUout,
+    input => s_muxALUI_Dout,
     load => c_loadD,
     output => s_regDout
   );

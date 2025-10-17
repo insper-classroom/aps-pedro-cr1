@@ -23,7 +23,8 @@ async def tb_ControlUnit(dut):
     outloadA     = [1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     outloadD     = [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0]
     outloadM     = [0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-    outloadPC    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]   
+    outloadPC    = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]
+    outmuxALUI_D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]   
 
 
     for i in range(len(ininstruction)):
@@ -34,7 +35,7 @@ async def tb_ControlUnit(dut):
         await Timer(1, units="ns")
         condition = (dut.zx.value == outzx[i] and dut.nx.value == outnx[i] and dut.zy.value == outzy[i] and
                      dut.ny.value == outny[i] and dut.f.value == outf[i] and dut.no.value == outno[i] and
-                     dut.muxALUI_A.value == outmuxALUI_A[i] and dut.muxAM.value == outmuxAM[i] and dut.loadA.value == outloadA[i] and 
+                     dut.muxALUI_A.value == outmuxALUI_A[i] and dut.muxALUI_D.value == outmuxALUI_D[i] and dut.muxAM.value == outmuxAM[i] and dut.loadA.value == outloadA[i] and 
                      dut.loadD.value == outloadD[i] and dut.loadM.value == outloadM[i] and dut.loadPC.value == outloadPC[i])
         if not condition:
             if not (dut.zx.value == outzx[i]):
@@ -61,6 +62,9 @@ async def tb_ControlUnit(dut):
                 dut._log.error("Expected value loadM: " + "{0:b}".format(outloadM[i]) + " Obtained value loadM: " + str(dut.loadM.value) )
             if not (dut.loadPC.value == outloadPC[i]):
                 dut._log.error("Expected value loadPC: " + "{0:b}".format(outloadPC[i]) + " Obtained value loadPC: " + str(dut.loadPC.value) )
+            if not (dut.muxALUI_D.value == outmuxALUI_D[i]):
+                dut._log.error("Expected value muxALUI_D: " + "{0:b}".format(outmuxALUI_D[i]) + 
+                            " Obtained value muxALUI_D: " + str(dut.muxALUI_D.value))    
             assert condition, "Error in test {0}!".format(i)
         await Timer(1, units="ns")
         
@@ -132,3 +136,102 @@ async def tb_CPU(dut):
                     dut._log.error("Expected value pcout: " + "{0:015b}".format(outpcout[i]) + " Obtained value pcout: " + str(dut.pcout.value) )
                 assert condition, "Error in test {0}!".format(i)
             await Timer(1, units="ns")
+
+
+@cocotb.test()
+async def tb_ControlUnit_ImmediateValue(dut):
+    """Testa o novo recurso de valor imediato"""
+    ininstruction = [
+        0b11_0000010011010010,  # D = 1234
+        0b11_0000000000000000,  # D = 0
+        0b11_1111111111111111,  # D = 65535
+    ]
+    inng = [0, 0, 0]
+    inzr = [0, 0, 0]
+    outzx        = [1, 1, 1]  # CORRIGIDO: zx forçado a 1
+    outnx        = [0, 0, 0]
+    outzy        = [1, 1, 1]  # CORRIGIDO: zy forçado a 1
+    outny        = [0, 0, 0]
+    outf         = [1, 1, 1]  # CORRIGIDO: f forçado a 1
+    outno        = [0, 0, 0]
+    outmuxALUI_A = [0, 0, 0]
+    outmuxALUI_D = [1, 1, 1]
+    outmuxAM     = [0, 0, 0]
+    outloadA     = [0, 0, 0]
+    outloadD     = [1, 1, 1]
+    outloadM     = [0, 0, 0]
+    outloadPC    = [0, 0, 0]
+    
+    for i in range(len(ininstruction)):
+        dut.instruction.value = ininstruction[i]
+        dut.ng.value = inng[i]
+        dut.zr.value = inzr[i]
+        await Timer(1, units="ns")
+        
+        condition = (dut.zx.value == outzx[i] and dut.nx.value == outnx[i] and 
+                     dut.zy.value == outzy[i] and dut.ny.value == outny[i] and 
+                     dut.f.value == outf[i] and dut.no.value == outno[i] and
+                     dut.muxALUI_A.value == outmuxALUI_A[i] and dut.muxALUI_D.value == outmuxALUI_D[i] and
+                     dut.muxAM.value == outmuxAM[i] and dut.loadA.value == outloadA[i] and 
+                     dut.loadD.value == outloadD[i] and dut.loadM.value == outloadM[i] and 
+                     dut.loadPC.value == outloadPC[i])
+        
+        assert condition, f"Error in test {i}!"
+        await Timer(1, units="ns")
+
+
+
+@cocotb.test()
+async def tb_CPU_ImmediateValue(dut):
+    """Testa CPU com valor imediato end-to-end"""
+    
+    # CRIAR LOG
+    import os
+    log_file = open("/tmp/cpu_debug.log", "w")
+    
+    ininstruction = [0x00000, 0x304D2, 0x0000A, 0x20620, 0x30000, 0x0000A, 0x23810, 0x3FFFF, 0x21500]
+    inM = [0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x04D2, 0x0000, 0x0000]
+    inreset = [1, 0, 0, 0, 0, 0, 0, 0, 0]
+    outM = [0x0000, 0x0000, 0x0002, 0x04D2, 0x0000, 0x0000, 0x04D2, 0x0000, 0x0000]
+    outAddress = [0x0000, 0x0000, 0x000A, 0x000A, 0x000A, 0x000A, 0x000A, 0x000A, 0x000A]
+    outWrite = [0, 0, 0, 1, 0, 0, 0, 0, 0]
+    outpcout = [0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008]
+    
+    clock = Clock(dut.clock, len(ininstruction), units="ns")
+    await cocotb.start(clock.start())
+    await FallingEdge(dut.clock)
+    
+    for i in range(len(ininstruction)):
+        dut.instruction.value = ininstruction[i]
+        dut.inM.value = inM[i]
+        dut.reset.value = inreset[i]
+        await FallingEdge(dut.clock)
+        
+        # LOG DETALHADO
+        if i > 1:
+            log_file.write(f"\n=== TEST {i} - Instrução ATUAL: {ininstruction[i]:05X} ===\n")
+            
+            # Ler valores internos
+            try:
+                log_file.write(f"regA interno: {dut.s_regAout.value}\n")
+                log_file.write(f"regD interno: {dut.s_regDout.value}\n")
+            except:
+                log_file.write(f"Registros: não acessíveis\n")
+            
+            log_file.write(f"outM: esperado={outM[i]:04X}, obtido={int(dut.outM.value):04X}\n")
+            log_file.write(f"addressM: esperado={outAddress[i]:04X}, obtido={int(dut.addressM.value):04X}\n")
+            log_file.write(f"writeM: esperado={outWrite[i]}, obtido={dut.writeM.value}\n")
+            log_file.write(f"pcout: esperado={outpcout[i]:04X}, obtido={int(dut.pcout.value):04X}\n")
+            log_file.flush()
+            
+            condition = (dut.outM.value == outM[i] and dut.writeM.value == outWrite[i] and 
+                        dut.addressM.value == outAddress[i] and dut.pcout.value == outpcout[i])
+            if not condition:
+                log_file.write(f"TESTE {i} FALHOU!\n")
+                log_file.flush()
+            assert condition, f"Error in test {i}!"
+        await Timer(1, units="ns")
+    
+    log_file.close()
+
+

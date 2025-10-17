@@ -17,7 +17,9 @@ entity ControlUnit is
                                                                      -- ng (se negativo) da ALU
 		muxALUI_A                   : out STD_LOGIC;                     -- mux que seleciona entre
                                                                      -- instrução  e ALU para reg. A
-		muxAM                       : out STD_LOGIC;                     -- mux que seleciona entre
+		muxALUI_D                   : out STD_LOGIC;                 -- instrução  e ALU para reg. D
+        
+        muxAM                       : out STD_LOGIC;                     -- mux que seleciona entre
                                                                      -- reg. A e Mem. RAM para ALU
                                                                      -- A  e Mem. RAM para ALU
 		zx, nx, zy, ny, f, no       : out STD_LOGIC;                     -- sinais de controle da ALU
@@ -31,22 +33,22 @@ architecture arch of ControlUnit is
 begin
 
     -- 1. Sinais de Carga (LOAD) -- CORRIGIDO
-    loadA <= (not instruction(17)) or (instruction(17) and instruction(3)); -- Destino A (d0)
-    loadD <= instruction(17) and instruction(4); -- Destino D (d1)
-    loadM <= instruction(17) and instruction(5); -- Destino M (d2)
+    loadA <= (not instruction(17)) or (instruction(17) and (not instruction(16)) and instruction(3));
+    loadD <= instruction(17) and (instruction(4) or instruction(16));
+    loadM <= instruction(17) and (not instruction(16)) and instruction(5);
 
     -- 2. Seletores de MUX -- CORRIGIDO
+    muxALUI_D <= instruction(17) and instruction(16);
     muxALUI_A <= not instruction(17);           -- Inverte saída do bit principal
-    muxAM     <= instruction(17) and instruction(13);        -- Bit 'a'/'r0': 0=A, 1=M
+    muxAM <= instruction(17) and (not instruction(16)) and instruction(13);        -- Bit 'a'/'r0': 0=A, 1=M
 
     -- 3. Sinais de controle da ULA (Cópia direta dos bits c5-c0)
-    zx <= instruction(17) and instruction(12);
-    nx <= instruction(17) and instruction(11);
-    zy <= instruction(17) and instruction(10);
-    ny <= instruction(17) and instruction(9);
-    f  <= instruction(17) and instruction(8);
-    no <= instruction(17) and instruction(7);
-
+    zx <= instruction(16) or (instruction(17) and (not instruction(16)) and instruction(12));
+    nx <= instruction(17) and (not instruction(16)) and instruction(11);
+    zy <= instruction(16) or (instruction(17) and (not instruction(16)) and instruction(10));
+    ny <= instruction(17) and (not instruction(16)) and instruction(9);
+    f  <= instruction(16) or (instruction(17) and (not instruction(16)) and instruction(8));
+    no <= instruction(17) and (not instruction(16)) and instruction(7);
     -- 4. Lógica de Salto (JUMP)
     process(instruction, zr, ng)
     begin
@@ -64,6 +66,6 @@ begin
     end process;
 
     -- O PC carrega se for uma Instrução-C E a condição de salto for verdadeira
-    loadPC <= instruction(17) and jump_condition;
+    loadPC <= instruction(17) and (not instruction(16)) and jump_condition;
 
 end architecture;

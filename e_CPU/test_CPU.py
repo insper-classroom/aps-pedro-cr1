@@ -18,9 +18,45 @@ def test_memoryio():
 def test_cpu():
     run(vhdl_sources=[source('cpu.vhd'),source('controlunit.vhd'),source('../../b_logComb/src/mux16.vhd'),source('../../c_ULA/src/alu.vhd'),source('../../d_logSeq/src/register16.vhd'),source('../../d_logSeq/src/pc.vhd'),source('../../d_logSeq/src/register8.vhd'),source('../../d_logSeq/src/binarydigit.vhd'),source('../../d_logSeq/src/flipflopd.vhd'),source('../../b_logComb/src/mux2way.vhd'),source("../../c_ULA/src/zerador16.vhd"), source("../../c_ULA/src/inversor16.vhd"), source("../../c_ULA/src/add16.vhd"), source("../../c_ULA/src/fulladder.vhd"), source("../../b_logComb/src/and16.vhd"), source("../../c_ULA/src/comparador16.vhd"), source("../../c_ULA/src/inc16.vhd")],toplevel="cpu", module="CPU_cocotb" , testcase='tb_CPU', toplevel_lang="vhdl")
 
+def test_controlunit_immediatevalue():
+    """Testa Control Unit com instruções de valor imediato (bit 16=1)"""
+    run(vhdl_sources=[source("controlunit.vhd")], 
+        toplevel="controlunit", 
+        module="CPU_cocotb", 
+        testcase='tb_ControlUnit_ImmediateValue', 
+        toplevel_lang="vhdl")
+
+def test_cpu_immediatevalue():
+    """Testa CPU com instruções de valor imediato end-to-end"""
+    run(vhdl_sources=[
+            source('cpu.vhd'),
+            source('controlunit.vhd'),
+            source('../../b_logComb/src/mux16.vhd'),
+            source('../../c_ULA/src/alu.vhd'),
+            source('../../d_logSeq/src/register16.vhd'),
+            source('../../d_logSeq/src/pc.vhd'),
+            source('../../d_logSeq/src/register8.vhd'),
+            source('../../d_logSeq/src/binarydigit.vhd'),
+            source('../../d_logSeq/src/flipflopd.vhd'),
+            source('../../b_logComb/src/mux2way.vhd'),
+            source("../../c_ULA/src/zerador16.vhd"), 
+            source("../../c_ULA/src/inversor16.vhd"), 
+            source("../../c_ULA/src/add16.vhd"), 
+            source("../../c_ULA/src/fulladder.vhd"), 
+            source("../../b_logComb/src/and16.vhd"), 
+            source("../../c_ULA/src/comparador16.vhd"), 
+            source("../../c_ULA/src/inc16.vhd")
+        ],
+        toplevel="cpu", 
+        module="CPU_cocotb", 
+        testcase='tb_CPU_ImmediateValue', 
+        toplevel_lang="vhdl")
+
 
 if __name__ == "__main__":
     test_controlunit()
     test_memoryio()
     test_cpu()
+    test_controlunit_immediatevalue()
+    test_cpu_immediatevalue()
     
