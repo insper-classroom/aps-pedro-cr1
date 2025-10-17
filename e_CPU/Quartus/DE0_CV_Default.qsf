@@ -566,5 +566,5 @@ set_global_assignment -name VHDL_FILE ../CPU_FPGA/Dispositivos/Dispositivos/PLL/
 set_global_assignment -name VERILOG_FILE ../CPU_FPGA/Dispositivos/Dispositivos/PLL/PLL/PLL_0002.v
 set_global_assignment -name VHDL_FILE ../../d_logSeq/src/register8.vhd
 set_global_assignment -name VHDL_FILE ../../b_logComb/src/mux2way.vhd
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name CDF_FILE DE0_CV_Default.cdf
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
