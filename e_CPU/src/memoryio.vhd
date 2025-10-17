@@ -155,8 +155,8 @@ BEGIN
     ----------------------------------------
     -- precisar ser: RAM ou SW16
     OUTPUT <=  OUTPUT_RAM      when ADDRESS(14) = '0' else
-           LED16           when ADDRESS(14 downto 13) = "11" else
-           SW16            when ADDRESS(14 downto 13) = "10" else
+           LED16           when ADDRESS(14 downto 0) = "101001011000000" else
+           SW16            when ADDRESS(14 downto 0) = "101001011000001" else
            (others => '0'); -- Para os casos não mapeados
 
 
