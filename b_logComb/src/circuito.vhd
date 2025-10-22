@@ -11,5 +11,5 @@ architecture arch of circuito is
     signal outAnd: STD_LOGIC;
     signal outNor: STD_LOGIC;
 begin
-
+x <= A and B and not C;
 end architecture;
