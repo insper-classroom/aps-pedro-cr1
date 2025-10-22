@@ -27,12 +27,6 @@ jobs:
     
     - name: Install ubuntu dependencies
       run: |
-#sudo dpkg --add-architecture i386
-#sudo apt-get update
-#sudo apt-get install build-essential
-#sudo apt-get install gcc make libxft2:i386 libxext6:i386 \
-#libncurses5:i386 libstdc++6:i386 libpng-dev libpng16-16:i386 \
-#libpng16-16 libnotify-bin 
         sudo apt install ghdl
         
     - name: Install python dependencies
