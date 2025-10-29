@@ -7,7 +7,7 @@ puts stdout ""
 
 set DEV_NAME "@1: 5CE(BA4|FA4) (0x02B050DD)"
 
-set MIF "/home/borg/Laisa/aps-pedro-cr1/e_CPU/CPU_FPGA/advinhe.mif"
+set MIF "/home/borg/Estudo_Elesis/aps-pedro-cr1/f_Assembly/bin/hack/SWeLED.mif"
 
 set JTAG "USB-Blaster \[3-3\]"
 
