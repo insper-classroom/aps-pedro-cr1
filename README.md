@@ -2,6 +2,7 @@
 
 ## LINK VIDEO APS D: https://youtu.be/QAOcdccR_vQ
 ## LINK VIDEO APS E: https://youtu.be/WUtIw8MrBfU
+## LINK VIDEO APS F: https://youtube.com/shorts/dg-3e2N-yWc
 
 
 -   **Nome: Láisa Camilly de Oliveira**<br><br>
