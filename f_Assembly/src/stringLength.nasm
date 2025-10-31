@@ -27,3 +27,38 @@
 ;  RAM[15] = NULL = 0x0000
 
 
+eaw $0, %A
+movw $0, (%A)          
+
+leaw $8, %A
+movw %A, %D
+leaw $1, %A
+movw %D, (%A)          
+
+LOOP:
+leaw $1, %A
+movw (%A), %A          
+movw (%A), %D          
+
+leaw $END, %A
+je %D                 
+nop
+
+; Incrementa contador
+leaw $0, %A
+movw (%A), %D
+addw %D, $1, %D
+movw %D, (%A)
+
+; Incrementa ponteiro
+leaw $1, %A
+movw (%A), %D
+addw %D, $1, %D
+movw %D, (%A)
+
+leaw $LOOP, %A
+jmp                 
+nop
+
+END:
+; O resultado já está em RAM[0]
