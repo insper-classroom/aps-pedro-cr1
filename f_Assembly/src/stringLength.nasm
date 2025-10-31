@@ -27,7 +27,7 @@
 ;  RAM[15] = NULL = 0x0000
 
 
-eaw $0, %A
+leaw $0, %A
 movw $0, (%A)          
 
 leaw $8, %A
