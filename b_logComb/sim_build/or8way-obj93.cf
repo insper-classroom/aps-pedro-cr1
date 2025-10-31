@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/aps-pedro-cr1/b_logComb/src/or8way.vhd" "eab42de9b9457da5cd2d67b6a074ccb185f682cb" "20250910221059.254":
+  entity or8way at 1( 0) + 0 on 11;
+  architecture arch of or8way at 17( 290) + 0 on 12;

@@ -11,11 +11,9 @@ def source(name):
 	src_dir = os.path.join(dir, 'src' )
 	return os.path.join(src_dir, name)
    
-#@pytest.mark.telemetry_files(source('and16.vhd'))
 def test_and16():
     run(vhdl_sources=[source("and16.vhd")], toplevel="and16", module="logComb_cocotb" , testcase='tb_and16', toplevel_lang="vhdl")
 
-#@pytest.mark.telemetry_files(source('or16.vhd'))
 def test_or16():
     run(vhdl_sources=[source("or16.vhd")], toplevel="or16", module="logComb_cocotb" , testcase='tb_or16', toplevel_lang="vhdl")
     
@@ -87,6 +85,15 @@ def test_impressora():
 def test_sevenseg():
     run(vhdl_sources=[source("sevenseg.vhd")], toplevel="sevenseg", module="logComb_cocotb" , testcase='tb_sevenseg', toplevel_lang="vhdl")      
     
+#@pytest.mark.telemetry_files(source('xor3.vhd'))
+def test_xor3():
+    run(vhdl_sources=[source("mux8way.vhd"), source("xor3.vhd")], toplevel="xor3", module="logComb_cocotb", testcase="tb_xor3", toplevel_lang="vhdl",
+    )
+
+#@pytest.mark.telemetry_files(source('carrinho.vhd'))
+def test_carrinho():
+    run(vhdl_sources=[source("carrinho.vhd")], toplevel="carrinho", module="logComb_cocotb", testcase="tb_carrinho", toplevel_lang="vhdl",
+    )
 
 if __name__ == "__main__":
     test_and16()
@@ -104,3 +111,4 @@ if __name__ == "__main__":
     test_circuito()
     test_impressora()
     test_sevenseg()
+    test_xor3()
