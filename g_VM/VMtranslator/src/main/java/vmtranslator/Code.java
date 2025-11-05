@@ -11,7 +11,7 @@ package vmtranslator;
 
 import java.util.*;
 import java.io.*;
-import java.nio.file.*;
+//import java.nio.file.*;
 
 /**
  * Traduz da linguagem vm para códigos assembly.
@@ -241,10 +241,77 @@ public class Code {
      * Grava no arquivo de saida as instruções em Assembly para o retorno de uma sub rotina.
      */
     public void writeReturn() {
-
         List<String> commands = new ArrayList<String>();
         commands.add(String.format("; %d - Retorno de função", lineCode++));
-
+        commands.add("leaw $1, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $13, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $13, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $14, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $0, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("movw %D, (%A)");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $2, %A");
+        commands.add("movw (%A), %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $2, %A");
+        commands.add("movw (%A), %D");
+        commands.add("incw %D");
+        commands.add("leaw $0, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $13, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $4, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $13, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $3, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $13, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $2, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $13, %A");
+        commands.add("movw (%A), %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("decw %D");
+        commands.add("movw %D, %A");
+        commands.add("movw (%A), %D");
+        commands.add("leaw $1, %A");
+        commands.add("movw %D, (%A)");
+        commands.add("leaw $14, %A");
+        commands.add("movw (%A), %A");
+        commands.add("jmp");
+        String[] stringArray = new String[commands.size()];
+        commands.toArray(stringArray);
+        write(stringArray);
     }
 
     /**
