@@ -1,0 +1,105 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+// Projeto      : Projeto I-VM
+// File         : 2a-Calculadora
+//
+// Descritivo   : 
+//  Escreva um código em VM que realize a seguinte
+//  operação :
+//    3^3
+//
+//  O resultado deve ser salvo em temp 1
+//
+//  Voce deve implementar a funcao de pow!
+//  e usar aqui no main para implementar
+//  o que foi pedido.
+//
+//  ****************************************************
+//  ** A ideia é deixar o Z01 resolver, você não deve **
+//  ** simplificar a equação                          **
+//  ****************************************************
+// ---------------------------------
+
+function Main.main 0
+                    // x^y
+    push constant 3 // x
+    push constant 3 // y
+    call pow 2
+    pop temp 2
+
+label while
+    goto while
+
+
+function mult 2
+	push constant 0
+	pop local 0
+	push argument 1
+	pop local 1  
+label loop
+	push constant 0
+	push local 1
+	eq
+	if-goto end
+	push local 0
+	push argument 0
+	add
+	pop local 0
+	push local 1
+	push constant 1
+	sub
+	pop local 1
+	goto loop
+label end
+	push local 0
+	return
+
+function pow 3
+    // Inicialização das variáveis locais
+    // local 0 = resultado (inicia com 1)
+    // local 1 = contador do expoente
+    // local 2 = base original (para multiplicações sucessivas)
+    
+    push constant 1
+    pop local 0          // resultado = 1
+    
+    push argument 1
+    pop local 1          // contador = y (expoente)
+    
+    push argument 0
+    pop local 2          // base_original = x
+    
+    // Caso especial: expoente 0
+    push local 1
+    push constant 0
+    eq
+    if-goto pow_end      // se y=0, resultado é 1
+    
+label pow_loop
+    // Verifica se o contador chegou a 0
+    push local 1
+    push constant 0
+    eq
+    if-goto pow_end
+    
+    // Multiplica resultado atual pela base
+    push local 0
+    push local 2
+    call mult 2          // chama mult(resultado, base)
+    pop local 0          // atualiza resultado
+    
+    // Decrementa o contador
+    push local 1
+    push constant 1
+    sub
+    pop local 1
+    
+    goto pow_loop
+
+label pow_end
+    // Retorna o resultado
+    push local 0
+    return

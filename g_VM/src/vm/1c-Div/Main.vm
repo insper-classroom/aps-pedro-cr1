@@ -1,0 +1,52 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+// Descritivo   :
+//  Faça a divisão do valor de temp 0 por temp 1
+//  salve o resultado em temp 3
+//
+//  temp 3 = temp 0 / temp 1
+//
+//  assuma que temp 0> temp 1 e ambos inteiros
+// ----------------------------------
+
+function Main.main 0
+
+// Inicializa variáveis
+push constant 0    // Contador do resultado (quociente)
+pop temp 3         // Inicializa temp 3 com 0
+
+// Carrega os valores
+push temp 0        // Dividendo
+push temp 1        // Divisor
+
+label division_loop
+// Verifica se ainda pode subtrair
+push temp 0        // Valor atual
+push temp 1        // Divisor
+lt                 // Se temp 0 < temp 1, para a divisão
+if-goto end
+
+// Subtrai divisor do dividendo
+push temp 0
+push temp 1
+sub
+pop temp 0         // Atualiza temp 0 com o resto
+
+// Incrementa o quociente
+push temp 3
+push constant 1
+add
+pop temp 3         // Atualiza temp 3 (quociente)
+
+goto division_loop
+
+label end
+
+// esse loop sempre deve existir!
+// caso contrario o computador vai
+// executar lixo de memoria.
+label while
+  goto while

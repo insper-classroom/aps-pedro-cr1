@@ -1,0 +1,55 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+// Projeto      : Projeto I-VM
+// File         : add1.vm
+//
+// Descritivo   : 
+//  faça um loop para somar 1+1.... 55 vezes
+//  salve o resultado em temp 3
+//
+//  dica: utilize os temps para armazenar o contador
+//        e o valor para o loop
+//
+// ----------------------------------
+
+function Main.main 0
+
+// Inicialização
+push constant 0     // Inicializa o acumulador com 0
+pop temp 3          // temp 3 = 0 (resultado)
+
+push constant 55    // Número de iterações
+pop temp 0          // temp 0 = contador (55)
+
+label loop_start
+
+// Verifica se o contador chegou a 0
+push temp 0
+push constant 0
+eq                  // Se contador == 0
+if-goto loop_end
+
+// Soma 1 ao resultado
+push temp 3
+push constant 1
+add
+pop temp 3          // Atualiza o resultado
+
+// Decrementa o contador
+push temp 0
+push constant 1
+sub
+pop temp 0          // Atualiza o contador
+
+goto loop_start
+
+label loop_end
+
+// esse loop sempre deve existir!
+// caso contrario o computador vai
+// executar lixo de memoria.
+label while
+  goto while

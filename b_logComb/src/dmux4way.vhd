@@ -13,6 +13,14 @@ end entity;
 
 architecture rtl of dmux4way is
 begin
+	q0 <= a when sel = "00" else
+	'0';
+	q1 <= a when sel = "01" else
+	'0';
+	q2 <= a when sel = "10" else
+	'0';
+	q3 <= a when sel = "11" else
+	'0';
 
 
 end architecture;

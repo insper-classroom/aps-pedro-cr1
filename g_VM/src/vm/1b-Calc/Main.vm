@@ -1,0 +1,40 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+//  Escreva um código em VM que realize a seguinte
+//  operação:
+//    (14+2)-(123-1)
+//
+//  O resultado deve ser salvo em temp 0
+//  
+//  ****************************************************
+//  ** A ideia é deixar o Z01 resolver, você não deve **
+//  ** simplificar a equação                          **
+//  ****************************************************
+// ---------------------------------
+
+function Main.main 0
+
+// Calcula (14 + 2)
+push constant 14
+push constant 2
+add            // Resultado de (14+2) = 16 no topo da pilha
+
+// Calcula (123 - 1)  
+push constant 123
+push constant 1
+sub            // Resultado de (123-1) = 122 no topo da pilha
+
+// Realiza (14+2) - (123-1) = 16 - 122 = -106
+sub            // Subtrai os dois resultados
+
+// Salva o resultado em temp 0
+pop temp 0
+
+// esse loop sempre deve existir!
+// caso contrario o computador vai
+// executar lixo de memoria.
+label while
+  goto while

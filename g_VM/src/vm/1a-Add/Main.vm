@@ -1,0 +1,24 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+// Descritivo   : 
+//  Adiciona 123 + 23 e deixa resultado na pilha
+//
+// ----------------------------------
+
+function Main.main 0
+
+// Push dos valores para a pilha
+push constant 123
+push constant 23
+
+// Executa a adição
+add
+
+// esse loop sempre deve existir!
+// caso contrario o computador vai
+// executar lixo de memoria.
+label while
+  goto while

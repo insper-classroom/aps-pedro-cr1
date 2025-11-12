@@ -1,0 +1,4 @@
+v 4
+file / "/home/borg/aps-pedro-cr1/b_logComb/src/circuito.vhd" "8b4c803d5e46d4f6030d1bdc7d59bfd3f0fe7b7c" "20250910221109.061":
+  entity circuito at 1( 0) + 0 on 11;
+  architecture arch of circuito at 10( 139) + 0 on 12;

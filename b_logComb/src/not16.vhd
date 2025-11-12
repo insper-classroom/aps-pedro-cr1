@@ -9,5 +9,5 @@ end entity;
 
 architecture arch of not16 is
 begin
-
+	q<= not a; -- inversão bit a bit (16 bits)
 end architecture;

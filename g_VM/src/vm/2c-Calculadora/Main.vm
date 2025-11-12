@@ -1,0 +1,85 @@
+// ---------------------------------  
+// Rafael Corsi @ insper . edu . br
+//              2018a
+// ---------------------------------
+//
+// Projeto      : Projeto I-VM
+// File         : 2c-Calculadora
+//
+// Descritivo   : 
+//  Escreva um código em VM que realize a seguinte
+//  operação :
+//    15/5
+//
+//  O resultado deve ser salvo em temp 1
+//
+//  Para isso, crie uma funcao div que realiza a divisao
+//  entre o primeiro e o segundo valor da pilha 
+//
+//  Você deve portar o div que foi realizado no exercicio
+//  1c-Div para dentro do arquivo div.vm, você terá que 
+//  ajustar algumas cosas. Use a funcao de mult como exemplo 
+//
+//  ****************************************************
+//  ** A ideia é deixar o Z01 resolver, você não deve **
+//  ** simplificar a equação                          **
+//  ****************************************************
+
+function div 2
+    // Inicializa variáveis locais
+    // local 0 = quociente (resultado)
+    // local 1 = resto (valor atual)
+    
+    push constant 0
+    pop local 0          // Inicializa quociente com 0
+    
+    push argument 0
+    pop local 1          // Inicializa resto com o dividendo (argument 0)
+    
+    push argument 1      // Divisor
+    push constant 0
+    eq                   // Verifica se divisor é 0
+    if-goto div_by_zero  // Evita divisão por zero
+    
+label division_loop
+    // Verifica se ainda pode subtrair
+    push local 1         // Resto atual
+    push argument 1      // Divisor
+    lt                   // Se resto < divisor, para a divisão
+    if-goto division_end
+    
+    // Subtrai divisor do resto
+    push local 1
+    push argument 1
+    sub
+    pop local 1          // Atualiza o resto
+    
+    // Incrementa o quociente
+    push local 0
+    push constant 1
+    add
+    pop local 0          // Atualiza o quociente
+    
+    goto division_loop
+
+label division_end
+    // Retorna o quociente
+    push local 0
+    return
+
+label div_by_zero
+    // Retorna 0 em caso de divisão por zero
+    push constant 0
+    return
+
+function Main.main 0
+
+// nao precisa mexer aqui, esse
+// exercicio tem que implementar o div.vm
+push constant 15
+push constant 5
+call div 2
+pop temp 1
+
+label while
+    goto while
