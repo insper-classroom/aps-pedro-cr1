@@ -25,6 +25,53 @@
 //  ** simplificar a equação                          **
 //  ****************************************************
 
+function div 2
+    // Inicializa variáveis locais
+    // local 0 = quociente (resultado)
+    // local 1 = resto (valor atual)
+    
+    push constant 0
+    pop local 0          // Inicializa quociente com 0
+    
+    push argument 0
+    pop local 1          // Inicializa resto com o dividendo (argument 0)
+    
+    push argument 1      // Divisor
+    push constant 0
+    eq                   // Verifica se divisor é 0
+    if-goto div_by_zero  // Evita divisão por zero
+    
+label division_loop
+    // Verifica se ainda pode subtrair
+    push local 1         // Resto atual
+    push argument 1      // Divisor
+    lt                   // Se resto < divisor, para a divisão
+    if-goto division_end
+    
+    // Subtrai divisor do resto
+    push local 1
+    push argument 1
+    sub
+    pop local 1          // Atualiza o resto
+    
+    // Incrementa o quociente
+    push local 0
+    push constant 1
+    add
+    pop local 0          // Atualiza o quociente
+    
+    goto division_loop
+
+label division_end
+    // Retorna o quociente
+    push local 0
+    return
+
+label div_by_zero
+    // Retorna 0 em caso de divisão por zero
+    push constant 0
+    return
+
 function Main.main 0
 
 // nao precisa mexer aqui, esse
